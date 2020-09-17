@@ -24,7 +24,7 @@ namespace yoketoruvs20
         const int EnemyIndex = PlayerIndex + PlayerMax;
         const int ItemIndex = EnemyIndex + EnemyMax;
 
-        const string EnemText = "ヽ( ・∀・)ノ●";
+        const string PlayerText = "ヽ( ・∀・)ノ●";
         const string EnemyText = "♦";
         const string ItemText = "★";
 
@@ -47,6 +47,25 @@ namespace yoketoruvs20
         public Form1()
         {
             InitializeComponent();
+
+            for(int i=0; i<ChrMax; i++)
+            {
+                chrs[i] = new Label();
+                chrs[i].AutoSize = true;
+                if(i==PlayerIndex)
+                {
+                    chrs[i].Text = PlayerText;
+                }
+                else if(i<ItemIndex)
+                {
+                    chrs[i].Text = EnemyText;
+                }
+                else
+                {
+                    chrs[i].Text = ItemText;
+                }
+                Controls.Add(chrs[i]);
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -67,6 +86,17 @@ namespace yoketoruvs20
                     nextState = State.Clear;
                 }
             }
+            if (currentState == State.Game)
+            {
+                UpdateGame();
+            }
+        }
+        void UpdateGame()
+        {
+            Point mp = PointToClient(MousePosition);
+
+            //TODO:mpがプレイヤーの中心になるように設定
+
         }
 
         void initProc()
